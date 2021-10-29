@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.suki.dao.ArticleMapper">
+    
+    <select id="listRecentArticle" resultType="article">
+        SELECT
+        article_id, article_user_id, article_title, article_view_count, article_comment_count, article_like_count,
+        article_create_time,
+        article_update_time, article_is_comment, article_status, article_order, article_thumbnail
+        FROM
+        article
+        <where>
+            <if test="userid != null">
+                article_user_id = #{userid}
+            </if>
+        </where>
+        ORDER BY article_id DESC
+        LIMIT #{limit}
+    </select>
+
+    <select id="getArticleByStatusAndId" resultType="article">
+        SELECT * FROM article
+        <where>
+            <if test="stat != null">
+                article_status = #{stat} AND
+            </if>
+            article_id = #{id}
+        </where>
+    </select>
+</mapper>

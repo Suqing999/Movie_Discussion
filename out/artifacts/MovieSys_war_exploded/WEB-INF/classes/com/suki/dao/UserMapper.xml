@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.suki.dao.UserMapper">
+
+    <!--根据用户名或者邮箱查询用户-->
+    <select id="getUserByNameOrEmail" resultType="user" parameterType="string">
+        select * from user where user_name=#{username} or user_email=#{username}
+    </select>
+
+    <update id="updateUser" parameterType="user">
+        update user
+        <set>
+            <if test="userName != null">user_name = #{userName,jdbcType=VARCHAR},</if>
+            <if test="userPass != null">user_pass = #{userPass,jdbcType=VARCHAR},</if>
+            <if test="userNickname != null">user_nickname = #{userNickname,jdbcType=VARCHAR},</if>
+            <if test="userEmail != null">user_email = #{userEmail,jdbcType=VARCHAR},</if>
+            <if test="userUrl != null">user_url = #{userUrl,jdbcType=VARCHAR},</if>
+            <if test="userAvatar != null">user_avatar = #{userAvatar,jdbcType=VARCHAR},</if>
+            <if test="userLastLoginIp != null">user_last_login_ip = #{userLastLoginIp,jdbcType=VARCHAR},</if>
+            <if test="userRegisterTime != null">user_register_time = #{userRegisterTime,jdbcType=TIMESTAMP},</if>
+            <if test="userLastLoginTime != null">user_last_login_time = #{userLastLoginTime,jdbcType=TIMESTAMP},</if>
+            <if test="userStatus != null">user_status = #{userStatus,jdbcType=INTEGER},</if>
+            <if test="userRole != null">user_role = #{userRole,jdbcType=VARCHAR},</if>
+        </set>
+        where user_id = #{userId,jdbcType=INTEGER}
+    </update>
+
+    <!--根据用户名查用户-->
+    <select id="getUserByName" parameterType="string" resultType="user">
+        SELECT * FROM user where  user_name=#{username}
+    </select>
+    <!--根据Email查用户-->
+    <select id="getUserByEmail" parameterType="String" resultType="user">
+        SELECT * FROM user where  user_email=#{email}
+    </select>
+
+
+    <insert id="insertUser" parameterType="user">
+        insert into user
+        (user_id, user_name, user_pass,
+        user_nickname, user_email, user_url,
+        user_avatar, user_last_login_ip, user_register_time,
+        user_last_login_time, user_status, user_role)
+        values
+        (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userPass,jdbcType=VARCHAR},
+        #{userNickname,jdbcType=VARCHAR}, #{userEmail,jdbcType=VARCHAR}, #{userUrl,jdbcType=VARCHAR},
+        #{userAvatar,jdbcType=VARCHAR}, #{userLastLoginIp,jdbcType=VARCHAR}, #{userRegisterTime,jdbcType=TIMESTAMP},
+        #{userLastLoginTime,jdbcType=TIMESTAMP}, #{userStatus,jdbcType=INTEGER}, #{userRole,jdbcType=VARCHAR})
+    </insert>
+</mapper>
