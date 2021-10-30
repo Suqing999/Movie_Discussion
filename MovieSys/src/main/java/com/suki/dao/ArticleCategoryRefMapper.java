@@ -12,4 +12,8 @@ public interface ArticleCategoryRefMapper {
     List<Integer> selectCategoryIdByArticleId(@Param("id") Integer articleId);
 
     void insert(ArticleCategoryRef articleCategoryRef);
+
+    Integer countArticleByCategoryId(@Param("id") Integer categoryId);
+
+    void deleteByArticleId(@Param("id") Integer articleId);
 }

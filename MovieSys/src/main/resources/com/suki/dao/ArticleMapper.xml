@@ -186,4 +186,12 @@
         </set>
         where article_id = #{articleId,jdbcType=INTEGER}
     </update>
+
+    <delete id="delart" parameterType="java.lang.Integer">
+        delete from article
+        where article_id = #{id,jdbcType=INTEGER}
+    </delete>
+
+
+
 </mapper>

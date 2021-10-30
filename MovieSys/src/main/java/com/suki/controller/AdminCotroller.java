@@ -3,10 +3,7 @@ package com.suki.controller;
 import cn.hutool.http.HtmlUtil;
 import com.github.pagehelper.PageInfo;
 import com.suki.pojo.*;
-import com.suki.service.ArticleService;
-import com.suki.service.CommentService;
-import com.suki.service.OptionsService;
-import com.suki.service.UserService;
+import com.suki.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,9 +25,12 @@ public class AdminCotroller {
 
     @Autowired
     private OptionsService optionsService;
-
+    @Autowired
+    private TagService tagService;
     @Autowired
     private ArticleService articleService;
+    @Autowired
+    private CategoryService categoryService;
 
     @Autowired
     private CommentService commentService;
@@ -267,6 +267,142 @@ public class AdminCotroller {
 
 
 
+
+    @RequestMapping("/article")
+    public String indexArticle(@RequestParam(required = false, defaultValue = "1") Integer pageIndex,
+                        @RequestParam(required = false, defaultValue = "10") Integer pageSize,
+                        @RequestParam(required = false) String status, Model model,
+                        HttpSession session) {
+        HashMap<String, Object> criteria = new HashMap<>(1);
+        if (status == null) {
+            model.addAttribute("pageUrlPrefix", "/admin/article?pageIndex");
+        } else {
+            criteria.put("status", status);
+            model.addAttribute("pageUrlPrefix", "/admin/article?status=" + status + "&pageIndex");
+        }
+
+        User user = (User) session.getAttribute("user");
+        if (!user.getUserRole().equals("admin")) {
+            // 用户查询自己的文章, 管理员查询所有的
+            criteria.put("userId", user.getUserId());
+        }
+        PageInfo<Article> articlePageInfo = articleService.pageArticle(pageIndex, pageSize, criteria);
+        model.addAttribute("pageInfo", articlePageInfo);
+        return "Admin/Article/index";
+    }
+
+
+
+
+    @RequestMapping("/article/insert")
+    public String insertArticleView(Model model) {
+        List<Category> categoryList = categoryService.listCategory();
+        List<Tag> tagList = tagService.listTag();
+        model.addAttribute("categoryList", categoryList);
+        model.addAttribute("tagList", tagList);
+        return "Admin/Article/insert";
+    }
+
+
+
+    @RequestMapping("/category")
+    public ModelAndView categoryList()  {
+        ModelAndView modelandview = new ModelAndView();
+        List<Category> categoryList = categoryService.listCategoryWithCount();
+        modelandview.addObject("categoryList",categoryList);
+        modelandview.setViewName("Admin/Category/index");
+        return modelandview;
+    }
+
+    @RequestMapping("/tag")
+    public ModelAndView indexTag()  {
+        ModelAndView modelandview = new ModelAndView();
+        List<Tag> tagList = tagService.listTagWithCount();
+        modelandview.addObject("tagList",tagList);
+        modelandview.setViewName("Admin/Tag/index");
+        return modelandview;
+
+    }
+
+  /*
+                            <a href="/admin/article/del/${a.articleId}"*/
+
+
+    @RequestMapping("/article/edit/{articleId}")
+    public String editArticleView(@PathVariable("articleId") Integer id, Model model, HttpSession session) {
+
+        Article article = articleService.getArticleByStatusAndId(null, id);
+        if (article == null) {
+            return "redirect:/404";
+        }
+        User user = (User) session.getAttribute("user");
+        // 如果不是管理员，访问其他用户的数据，则跳转403
+        if (!Objects.equals(article.getArticleUserId(), user.getUserId()) && !Objects.equals(user.getUserRole(), "admin")) {
+            return "redirect:/403";
+        }
+        model.addAttribute("article", article);
+        List<Category> categoryList = categoryService.listCategory();
+        model.addAttribute("categoryList", categoryList);
+        List<Tag> tagList = tagService.listTag();
+        model.addAttribute("tagList", tagList);
+        return "Admin/Article/edit";
+    }
+
+    @RequestMapping("/article/del/{articleId}")
+    public String delArticle(@PathVariable("articleId") Integer id) {
+        articleService.delArticle(id);
+        return "redirect:/admin/article";
+    }
+
+
+
+    @RequestMapping("/article/editSubmit")
+    public String editArticleSubmit(ArticleParam articleParam, HttpSession session) {
+        Article dbArticle = articleService.getArticleByStatusAndId(null, articleParam.getArticleId());
+        if (dbArticle == null) {
+            return "redirect:/404";
+        }
+        User user = (User) session.getAttribute("user");
+        // 如果不是管理员，访问其他用户的数据，则跳转403
+        if (!Objects.equals(dbArticle.getArticleUserId(), user.getUserId()) && !Objects.equals(user.getUserRole(), "admin")) {
+            return "redirect:/403";
+        }
+        Article article = new Article();
+        article.setArticleThumbnail(articleParam.getArticleThumbnail());
+        article.setArticleId(articleParam.getArticleId());
+        article.setArticleTitle(articleParam.getArticleTitle());
+        article.setArticleContent(articleParam.getArticleContent());
+        article.setArticleStatus(articleParam.getArticleStatus());
+        //文章摘要
+        int summaryLength = 150;
+        String summaryText = HtmlUtil.cleanHtmlTag(article.getArticleContent());
+        if (summaryText.length() > summaryLength) {
+            String summary = summaryText.substring(0, summaryLength);
+            article.setArticleSummary(summary);
+        } else {
+            article.setArticleSummary(summaryText);
+        }
+        //填充分类
+        List<Category> categoryList = new ArrayList<>();
+        if (articleParam.getArticleChildCategoryId() != null) {
+            categoryList.add(new Category(articleParam.getArticleParentCategoryId()));
+        }
+        if (articleParam.getArticleChildCategoryId() != null) {
+            categoryList.add(new Category(articleParam.getArticleChildCategoryId()));
+        }
+        article.setCategoryList(categoryList);
+        //填充标签
+        List<Tag> tagList = new ArrayList<>();
+        if (articleParam.getArticleTagIds() != null) {
+            for (int i = 0; i < articleParam.getArticleTagIds().size(); i++) {
+                Tag tag = new Tag(articleParam.getArticleTagIds().get(i));
+                tagList.add(tag);
+            }
+        }
+        article.setTagList(tagList);
+        articleService.updateArticleDetail(article);
+        return "redirect:/admin/article";
+    }
 
 
 

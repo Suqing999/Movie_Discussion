@@ -30,4 +30,8 @@ public interface ArticleService {
     void insertArticle(Article article);
 
     void updateArticle(Article article);
+
+    void delArticle(Integer id);
+
+    void updateArticleDetail(Article article);
 }

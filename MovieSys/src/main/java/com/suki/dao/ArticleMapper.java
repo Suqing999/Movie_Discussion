@@ -32,4 +32,7 @@ public interface ArticleMapper {
     List<Integer> listArticleIdsByUserId(@Param("userId") Integer userId);
 
     void updateArticle(Article article);
+
+    void delart(@Param("id") Integer id);
+
 }

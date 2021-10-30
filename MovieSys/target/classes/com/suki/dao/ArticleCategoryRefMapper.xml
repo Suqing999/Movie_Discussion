@@ -25,4 +25,16 @@
         (article_id, category_id)
         values (#{articleId}, #{categoryId})
     </insert>
+
+
+
+    <select id="countArticleByCategoryId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select count(*) from article_category_ref
+        where category_id = #{id}
+    </select>
+
+    <delete id="deleteByArticleId" parameterType="java.lang.Integer">
+        delete from article_category_ref
+        where article_id = #{id}
+    </delete>
 </mapper>

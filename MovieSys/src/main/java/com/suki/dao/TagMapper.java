@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface TagMapper {
     List<Tag> listTag();
+
 }

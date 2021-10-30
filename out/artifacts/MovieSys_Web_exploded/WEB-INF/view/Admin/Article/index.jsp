@@ -95,8 +95,7 @@
                         <td>
                             <a href="/admin/article/edit/${a.articleId}"
                                class="layui-btn layui-btn-mini">编辑</a>
-                            <a href="javascript:void(0)"
-                               onclick="deleteArticle(${a.articleId})"
+                            <a href="/admin/article/del/${a.articleId}"
                                class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
                         </td>
                         <td>${a.articleId}</td>

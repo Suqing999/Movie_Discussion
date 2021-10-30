@@ -140,4 +140,36 @@ public class ArticleServiceImpl implements ArticleService {
     public void updateArticle(Article article) {
         articleMapper.updateArticle(article);
     }
+
+    @Override
+    public void delArticle(Integer id) {
+        articleMapper.delart(id);
+    }
+
+
+    @Override
+    public void updateArticleDetail(Article article) {
+        article.setArticleUpdateTime(new Date());
+        articleMapper.updateArticle(article);
+
+        if (article.getTagList() != null) {
+            //删除标签和文章关联
+            articleTagRefMapper.deleteByArticleId(article.getArticleId());
+            //添加标签和文章关联
+            for (int i = 0; i < article.getTagList().size(); i++) {
+                ArticleTagRef articleTagRef = new ArticleTagRef(article.getArticleId(), article.getTagList().get(i).getTagId());
+                articleTagRefMapper.insert(articleTagRef);
+            }
+        }
+
+        if (article.getCategoryList() != null) {
+            //添加分类和文章关联
+            articleCategoryRefMapper.deleteByArticleId(article.getArticleId());
+            //删除分类和文章关联
+            for (int i = 0; i < article.getCategoryList().size(); i++) {
+                ArticleCategoryRef articleCategoryRef = new ArticleCategoryRef(article.getArticleId(), article.getCategoryList().get(i).getCategoryId());
+                articleCategoryRefMapper.insert(articleCategoryRef);
+            }
+        }
+    }
 }

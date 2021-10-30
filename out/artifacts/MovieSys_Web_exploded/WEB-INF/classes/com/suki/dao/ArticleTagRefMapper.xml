@@ -9,10 +9,18 @@
     article_tag_ref.tag_id = tag.tag_id
     </select>
 
-
+    <select id="countArticleByTagId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select count(*) from article_tag_ref
+        where tag_id = #{id}
+    </select>
     <insert id="insert" parameterType="java.lang.Integer" >
         insert into article_tag_ref
         (article_id, tag_id)
         values (#{articleId}, #{tagId})
     </insert>
+    <delete id="deleteByArticleId" parameterType="java.lang.Integer" >
+        delete from article_tag_ref where article_id = #{id}
+    </delete>
+
+
 </mapper>

@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface TagService {
     List<Tag> listTag();
+
+    List<Tag> listTagWithCount();
 }

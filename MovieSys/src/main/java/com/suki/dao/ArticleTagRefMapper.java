@@ -12,4 +12,8 @@ public interface ArticleTagRefMapper {
     List<Tag> listTagByArticleId(@Param("id") Integer articleId);
 
     void insert(ArticleTagRef articleTagRef);
+
+    Integer countArticleByTagId(@Param("id") Integer tagId);
+
+    void deleteByArticleId(@Param("id") Integer articleId);
 }
