@@ -13,4 +13,23 @@ public interface ArticleMapper {
     Article getArticleByStatusAndId(@Param("stat")Integer stat, @Param("id")Integer commentArticleId);
 
     List<Article> findAll(HashMap<String, Object> criteria);
+
+    List<Article> listArticleByViewCount(@Param("limit") Integer limit);
+
+    Article getAfterArticle(@Param("id") Integer articleId);
+
+    Article getPreArticle(@Param("id")Integer articleId);
+
+    List<Article> listRandomArticle(@Param("limit")Integer limit);
+
+    List<Article> listArticleByCommentCount(@Param("limit") Integer limit);
+
+    List<Article> findArticleByCategoryIds(@Param("categoryIds") List<Integer> categoryIds,
+                                           @Param("limit") Integer limit);
+
+    void insert(Article article);
+
+    List<Integer> listArticleIdsByUserId(@Param("userId") Integer userId);
+
+    void updateArticle(Article article);
 }

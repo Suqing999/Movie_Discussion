@@ -1,6 +1,5 @@
 <%@ page import="java.security.MessageDigest" %>
 <%@ page import="java.security.NoSuchAlgorithmException" %>
-<%@ page import="com.liuyanzhao.ssm.blog.util.MyUtils" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -68,14 +67,9 @@
                                         </a>
                                      </span>
 
-                            <c:if test="${sessionScope.user.userRole == 'admin'}">
-                                        <span class=""> |
-                                            <a href="/admin/comment/edit/${c.commentId}">编辑</a>
-                                         </span>
-                            </c:if>
 
                             <span class=""> |
-                                        <a href="javascript:void(0)" onclick="deleteComment(${c.commentId})">删除</a>
+                                        <a href="/admin/comment/delete/${c.commentId}">删除</a>
                                      </span>
                         </div>
                     </td>

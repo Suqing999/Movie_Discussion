@@ -12,7 +12,7 @@
     <link rel="shortcut icon" href="/img/logo.png">
     <title>
         ${options.optionSiteTitle}后台
-            <rapid:block name="title"></rapid:block>
+        <rapid:block name="title"></rapid:block>
     </title>
     <link rel="stylesheet" href="/plugin/layui/css/layui.css">
     <link rel="stylesheet" href="/css/back.css">
@@ -24,7 +24,7 @@
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
         <div class="layui-logo"><a href="/admin" style="color:#009688;">
-        ${options.optionSiteTitle}后台
+            ${options.optionSiteTitle}后台
         </a>
         </div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
@@ -53,46 +53,46 @@
 
             <c:if test="${sessionScope.user != null && sessionScope.user.userRole == 'admin'}">
                 <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-                <li class="layui-nav-item layui-nav-itemed">
-                    <a class="" href="javascript:;">文章</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="/admin/article">全部文章</a></dd>
-                        <dd><a href="/admin/article/insert">写文章</a></dd>
-                        <dd><a href="/admin/category">全部分类</a></dd>
-                        <dd><a href="/admin/tag">全部标签</a></dd>
-                    </dl>
-                </li>
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;">文章</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/admin/article">全部文章</a></dd>
+                            <dd><a href="/admin/article/insert">写文章</a></dd>
+                            <dd><a href="/admin/category">全部分类</a></dd>
+                            <dd><a href="/admin/tag">全部标签</a></dd>
+                        </dl>
+                    </li>
 
-                <li class="layui-nav-item">
-                    <a class="" href="javascript:;">
-                        链接
-                    </a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="/admin/link">全部链接</a></dd>
-                        <dd><a href="/admin/link/insert">添加链接</a></dd>
-                    </dl>
-                </li>
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;">
+                            链接
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/admin/link">全部链接</a></dd>
+                            <dd><a href="/admin/link/insert">添加链接</a></dd>
+                        </dl>
+                    </li>
 
-                <li class="layui-nav-item">
-                    <a href="/admin/comment">
-                        评论
-                    </a>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">用户</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="/admin/user">全部用户</a></dd>
-                        <dd><a href="/admin/user/insert">添加用户</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">设置</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="/admin/menu">菜单</a></dd>
-                        <dd><a href="/admin/options">主要选项</a></dd>
-                    </dl>
-                </li>
-            </ul>
+                    <li class="layui-nav-item">
+                        <a href="/admin/comment">
+                            评论
+                        </a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">用户</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/admin/user">全部用户</a></dd>
+                            <dd><a href="/admin/user/insert">添加用户</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">设置</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/admin/menu">菜单</a></dd>
+                            <dd><a href="/admin/options">主要选项</a></dd>
+                        </dl>
+                    </li>
+                </ul>
             </c:if>
 
             <c:if test="${sessionScope.user != null && sessionScope.user.userRole == 'user'}">
@@ -127,7 +127,7 @@
 
     <div class="layui-footer">
         <!-- 底部固定区域 -->
-        © <a href="http://blog.liuyanzhao.com">言曌博客</a> 2017  欢迎加入开发者交流群 590480292，博主免费回答大家日常问题。同时博主代做毕设，解决开发问题，详情参看 <a href="https://liuyanzhao.com/shop.html" target="_blank">有偿服务</a>
+        <div align="center">© <a href="#">Suki电影论坛与推荐</a> 2021    同时代做毕设 </div>
     </div>
 </div>
 

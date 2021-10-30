@@ -62,4 +62,128 @@
         </where>
         ORDER BY `article`.`article_order` DESC, `article`.`article_id` DESC
     </select>
+
+
+
+    <!--获得访问量较多的文章-->
+    <select id="listArticleByViewCount" resultType="article">
+        SELECT * FROM article
+        WHERE article_status = 1
+        ORDER BY article_view_count DESC,article_order DESC, article_id DESC
+        limit #{limit}
+
+    </select>
+
+
+
+    <!--获得下一篇的文章-->
+    <select id="getAfterArticle" resultType="article">
+        SELECT * FROM article
+        <where>
+            article_id > #{id} AND article_status = 1
+        </where>
+        ORDER BY article_id
+        limit 1
+    </select>
+    <!--获得上一篇的文章-->
+    <select id="getPreArticle" resultType="article">
+        SELECT * FROM article
+        <where>
+            article_id &lt; #{id} AND article_status = 1
+        </where>
+        ORDER BY article_id
+        limit 1
+    </select>
+
+
+
+    <!--获得随机文章-->
+    <select id="listRandomArticle" resultType="article">
+        SELECT * FROM article
+        WHERE article_status = 1
+        ORDER BY
+        RAND()
+        limit #{limit}
+    </select>
+
+
+
+    <!--获得评论数较多的文章列表-->
+    <select id="listArticleByCommentCount" resultType="article">
+        SELECT * FROM article
+        WHERE article_status = 1
+        ORDER BY
+        article_comment_count DESC,article_order DESC, article_id DESC
+        limit #{limit}
+    </select>
+
+
+    <select id="findArticleByCategoryIds" resultType="article">
+        SELECT
+        distinct article.article_id, article.article_user_id, article.article_title,
+        article.article_view_count, article.article_comment_count,
+        article.article_like_count, article.article_create_time, article.article_update_time,
+        article.article_is_comment, article.article_status, article.article_order,
+        article.article_summary, article.article_thumbnail
+        FROM article, article_category_ref
+        <where>
+            article.article_status = 1 AND
+            article.article_id = article_category_ref.article_id AND
+            article_category_ref.category_id
+            <if test="categoryIds != null">
+                IN
+                <foreach collection="categoryIds" open="(" close=")" separator="," item="id">
+                    #{id}
+                </foreach>
+            </if>
+        </where>
+        LIMIT #{limit}
+    </select>
+
+
+    <insert id="insert" parameterType="article" useGeneratedKeys="true"
+            keyProperty="articleId">
+        insert into  article
+        (article_user_id, article_title,
+        article_view_count, article_comment_count,
+        article_like_count, article_create_time, article_update_time,
+        article_is_comment, article_status, article_order,
+        article_content, article_summary,article_thumbnail)
+        values (#{articleUserId,jdbcType=INTEGER}, #{articleTitle,jdbcType=VARCHAR},
+        #{articleViewCount,jdbcType=INTEGER},
+        #{articleCommentCount,jdbcType=INTEGER},
+        #{articleLikeCount,jdbcType=INTEGER}, #{articleCreateTime,jdbcType=TIMESTAMP},
+        #{articleUpdateTime,jdbcType=TIMESTAMP},
+        #{articleIsComment,jdbcType=INTEGER}, #{articleStatus,jdbcType=INTEGER}, #{articleOrder,jdbcType=INTEGER},
+        #{articleContent,jdbcType=LONGVARCHAR}, #{articleSummary,jdbcType=VARCHAR}, #{articleThumbnail})
+    </insert>
+
+    <select id="listArticleIdsByUserId" resultType="java.lang.Integer">
+        SELECT article_id
+        FROM
+       article
+        WHERE
+        article_user_id = #{userId}
+    </select>
+
+
+    <update id="updateArticle" parameterType="article">
+        update article
+        <set>
+            <if test="articleUserId != null">article_user_id = #{articleUserId,jdbcType=INTEGER},</if>
+            <if test="articleTitle != null">article_title = #{articleTitle,jdbcType=VARCHAR},</if>
+            <if test="articleViewCount != null">article_view_count = #{articleViewCount,jdbcType=INTEGER},</if>
+            <if test="articleCommentCount != null">article_comment_count = #{articleCommentCount,jdbcType=INTEGER},</if>
+            <if test="articleLikeCount != null">article_like_count = #{articleLikeCount,jdbcType=INTEGER},</if>
+            <if test="articleCreateTime != null">article_create_time = #{articleCreateTime,jdbcType=TIMESTAMP},</if>
+            <if test="articleUpdateTime != null">article_update_time = #{articleUpdateTime,jdbcType=TIMESTAMP},</if>
+            <if test="articleIsComment != null">article_is_comment = #{articleIsComment,jdbcType=INTEGER},</if>
+            <if test="articleStatus != null">article_status = #{articleStatus,jdbcType=INTEGER},</if>
+            <if test="articleOrder != null">article_order = #{articleOrder,jdbcType=INTEGER},</if>
+            <if test="articleContent != null">article_content = #{articleContent,jdbcType=LONGVARCHAR},</if>
+            <if test="articleSummary != null">article_summary = #{articleSummary,jdbcType=VARCHAR},</if>
+            <if test="articleThumbnail != null">article_thumbnail = #{articleThumbnail,jdbcType=VARCHAR},</if>
+        </set>
+        where article_id = #{articleId,jdbcType=INTEGER}
+    </update>
 </mapper>

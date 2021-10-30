@@ -64,6 +64,11 @@ public class StartController {
         List<Link> linkList = linkService.listLink(1); //1为显示
         model.addAttribute("linkList", linkList);
 
+
+        //分类
+        /*List<Category> linkList = linkService.listLink(1); //1为显示
+        model.addAttribute("linkList", linkList);*/
+
         //菜单
         List<Menu> menuList = menuService.listMenu();
         model.addAttribute("menuList",menuList);
@@ -286,60 +291,33 @@ public class StartController {
 
 
 
+    @RequestMapping(value = "/search")
+    public String search(
+            @RequestParam("keywords") String keywords,
+            @RequestParam(required = false, defaultValue = "1") Integer pageIndex,
+            @RequestParam(required = false, defaultValue = "10") Integer pageSize, Model model) {
+        //文章列表
+        HashMap<String, Object> criteria = new HashMap<>(2);
+        criteria.put("status", 1);
+        criteria.put("keywords", keywords);
+        PageInfo<Article> articlePageInfo = articleService.pageArticle(pageIndex, pageSize, criteria);
+        model.addAttribute("pageInfo", articlePageInfo);
 
-
-
-
-
-
-
-
-    /**
-     * Suki
-     * 注册成功
-     * @returne
-     */
-    @RequestMapping(value = "/doRegister2",method = RequestMethod.GET,produces = {"text/plain;charset=UTF-8"})
-    @ResponseBody
-    public void doRegister2(@RequestBody User user){
-
-        System.out.println("fffffffffffff");
-
-        System.out.println(user);
-/*
-        Map<String, Object> map = new HashMap<>();
-
-        //检查是否已经存在用户
-        User checkUserName = userService.getUserByName(username);
-
-        //检查是否已经存在邮箱
-        User checkEmail = userService.getUserByEmail(email);
-        if (checkUserName != null) {
-            map.put("code", 0);
-            map.put("msg", "用户已经存在");
-        }else if(checkEmail != null){
-            map.put("code", 0);
-            map.put("msg", "邮箱已经存在");
-        }else{
-            // 添加用户
-            User user = new User();
-            user.setUserAvatar("/img/avatar/avatar.png");
-            user.setUserName(username);
-            user.setUserNickname(nickname);
-            user.setUserPass(password);
-            user.setUserEmail(email);
-            user.setUserStatus(1);
-            user.setArticleCount(0);
-            user.setUserRole("user");
-
-            userService.insertUser(user);
-
-            map.put("code", 1);
-            map.put("msg", "注册成功");
-        }
-        String result = new JSONObject(map).toString(); //转为json串
-        System.out.println(result);
-        return result;*/
+        //侧边栏显示
+        //标签列表显示
+        List<Tag> allTagList = tagService.listTag();
+        model.addAttribute("allTagList", allTagList);
+        //获得随机文章
+        List<Article> randomArticleList = articleService.listRandomArticle(8);
+        model.addAttribute("randomArticleList", randomArticleList);
+        //获得热评文章
+        List<Article> mostCommentArticleList = articleService.listArticleByCommentCount(8);
+        model.addAttribute("mostCommentArticleList", mostCommentArticleList);
+        //最新评论
+        List<Comment> recentCommentList = commentService.listRecentComment(null, 10);
+        model.addAttribute("recentCommentList", recentCommentList);
+        model.addAttribute("pageUrlPrefix", "/search?pageIndex");
+        return "Home/Page/search";
     }
 
 

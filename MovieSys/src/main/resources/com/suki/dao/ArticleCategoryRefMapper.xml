@@ -13,4 +13,16 @@
         article_category_ref.category_id = category.category_id
         ORDER BY category.category_pid asc
     </select>
+
+    <select id="selectCategoryIdByArticleId" resultType="java.lang.Integer">
+        SELECT category_id FROM article_category_ref
+        WHERE article_id = #{id}
+    </select>
+
+
+    <insert id="insert" parameterType="java.lang.Integer">
+        insert into article_category_ref
+        (article_id, category_id)
+        values (#{articleId}, #{categoryId})
+    </insert>
 </mapper>

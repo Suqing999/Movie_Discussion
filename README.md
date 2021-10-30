@@ -26,4 +26,13 @@ Map<String, String> map=new HashMap<>(1);
     }
 ```
 
-内容2：
+内容2：JSP 500错误
+````
+org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: [16] in the generated java file:xxxxx
+````
+原因：pom中jsp的jar包冲突导致，也有可能是jsp引入java文件路径失败
+
+
+
