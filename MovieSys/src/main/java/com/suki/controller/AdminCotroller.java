@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.suki.pojo.*;
 import com.suki.service.ArticleService;
 import com.suki.service.CommentService;
+import com.suki.service.OptionsService;
 import com.suki.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,9 @@ public class AdminCotroller {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private OptionsService optionsService;
 
     @Autowired
     private ArticleService articleService;
@@ -228,4 +232,42 @@ public class AdminCotroller {
         userService.deleteUser(id);
         return "redirect:/admin/user";
     }
+
+
+
+
+    @RequestMapping("/options")
+    public ModelAndView index()  {
+        ModelAndView modelAndView = new ModelAndView();
+        Options option = optionsService.getOptions();
+        modelAndView.addObject("option",option);
+
+        modelAndView.setViewName("Admin/Options/index");
+        return modelAndView;
+    }
+
+
+
+
+    @RequestMapping("/options/editSubmit")
+    public String editOptionSubmit(Options options)  {
+        //如果记录不存在，那就新建
+        Options optionsCustom = optionsService.getOptions();
+        if(optionsCustom.getOptionId()==null) {
+            optionsService.insertOptions(options);
+        } else {
+            optionsService.updateOptions(options);
+        }
+        return "redirect:/admin/options";
+    }
+
+
+
+
+
+
+
+
+
+
 }

@@ -78,7 +78,6 @@
                     <li class="layui-nav-item">
                         <a href="javascript:;">设置</a>
                         <dl class="layui-nav-child">
-                            <dd><a href="/admin/menu">菜单</a></dd>
                             <dd><a href="/admin/options">主要选项</a></dd>
                         </dl>
                     </li>

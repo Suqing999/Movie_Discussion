@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.suki.dao.OptionsMapper">
+    <select id="getOptions" resultType="options">
+        select * from options
+    </select>
+
+
+    <insert id="insert" parameterType="options">
+        insert into options
+        (option_id, option_site_title, option_site_descrption,
+        option_meta_descrption, option_meta_keyword,
+        option_aboutsite_avatar, option_aboutsite_title,
+        option_aboutsite_content, option_aboutsite_wechat,
+        option_aboutsite_qq, option_aboutsite_github,
+        option_aboutsite_weibo, option_tongji, option_status
+        )
+        values (#{optionId,jdbcType=INTEGER}, #{optionSiteTitle,jdbcType=VARCHAR},
+        #{optionSiteDescrption,jdbcType=VARCHAR},
+        #{optionMetaDescrption,jdbcType=VARCHAR}, #{optionMetaKeyword,jdbcType=VARCHAR},
+        #{optionAboutsiteAvatar,jdbcType=VARCHAR}, #{optionAboutsiteTitle,jdbcType=VARCHAR},
+        #{optionAboutsiteContent,jdbcType=VARCHAR}, #{optionAboutsiteWechat,jdbcType=VARCHAR},
+        #{optionAboutsiteQq,jdbcType=VARCHAR}, #{optionAboutsiteGithub,jdbcType=VARCHAR},
+        #{optionAboutsiteWeibo,jdbcType=VARCHAR}, #{optionTongji,jdbcType=VARCHAR}, #{optionStatus,jdbcType=INTEGER}
+        )
+    </insert>
+
+    <update id="update" parameterType="options">
+        update options
+        <set>
+            <if test="optionSiteTitle != null">option_site_title = #{optionSiteTitle,jdbcType=VARCHAR},</if>
+            <if test="optionSiteDescrption != null">option_site_descrption = #{optionSiteDescrption,jdbcType=VARCHAR},
+            </if>
+            <if test="optionMetaDescrption != null">option_meta_descrption = #{optionMetaDescrption,jdbcType=VARCHAR},
+            </if>
+            <if test="optionMetaKeyword != null">option_meta_keyword = #{optionMetaKeyword,jdbcType=VARCHAR},</if>
+            <if test="optionAboutsiteAvatar != null">option_aboutsite_avatar =
+                #{optionAboutsiteAvatar,jdbcType=VARCHAR},
+            </if>
+            <if test="optionAboutsiteTitle != null">option_aboutsite_title = #{optionAboutsiteTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="optionAboutsiteContent != null">option_aboutsite_content =
+                #{optionAboutsiteContent,jdbcType=VARCHAR},
+            </if>
+            <if test="optionAboutsiteWechat != null">option_aboutsite_wechat =
+                #{optionAboutsiteWechat,jdbcType=VARCHAR},
+            </if>
+            <if test="optionAboutsiteQq != null">option_aboutsite_qq = #{optionAboutsiteQq,jdbcType=VARCHAR},</if>
+            <if test="optionAboutsiteGithub != null">option_aboutsite_github =
+                #{optionAboutsiteGithub,jdbcType=VARCHAR},
+            </if>
+            <if test="optionAboutsiteWeibo != null">option_aboutsite_weibo = #{optionAboutsiteWeibo,jdbcType=VARCHAR},
+            </if>
+            <if test="optionTongji != null">option_tongji = #{optionTongji,jdbcType=VARCHAR},</if>
+            <if test="optionStatus != null">option_status = #{optionStatus,jdbcType=INTEGER}</if>
+        </set>
+        where option_id = #{optionId,jdbcType=INTEGER}
+    </update>
+</mapper>
