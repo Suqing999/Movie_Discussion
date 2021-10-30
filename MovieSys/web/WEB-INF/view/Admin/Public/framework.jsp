@@ -30,16 +30,6 @@
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
             <li class="layui-nav-item"><a href="/" target="_blank">前台</a></li>
-            <li class="layui-nav-item">
-                <a href="javascript:;">新建</a>
-                <dl class="layui-nav-child">
-                    <dd><a href="/admin/article/insert">文章</a></dd>
-                    <dd><a href="/admin/page/insert">页面</a></dd>
-                    <dd><a href="/admin/category/insert">分类</a></dd>
-                    <dd><a href="/admin/notice/insert">公告</a></dd>
-                    <dd><a href="/admin/link/insert">链接</a></dd>
-                </dl>
-            </li>
         </ul>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
@@ -72,13 +62,7 @@
                         <dd><a href="/admin/tag">全部标签</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">页面</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="/admin/page">全部页面</a></dd>
-                        <dd><a href="/admin/page/insert">添加页面</a></dd>
-                    </dl>
-                </li>
+
                 <li class="layui-nav-item">
                     <a class="" href="javascript:;">
                         链接
@@ -88,13 +72,7 @@
                         <dd><a href="/admin/link/insert">添加链接</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">公告</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="/admin/notice">全部公告</a></dd>
-                        <dd><a href="/admin/notice/insert">添加公告</a></dd>
-                    </dl>
-                </li>
+
                 <li class="layui-nav-item">
                     <a href="/admin/comment">
                         评论

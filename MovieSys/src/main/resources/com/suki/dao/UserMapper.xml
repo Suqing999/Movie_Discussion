@@ -49,4 +49,11 @@
         #{userAvatar,jdbcType=VARCHAR}, #{userLastLoginIp,jdbcType=VARCHAR}, #{userRegisterTime,jdbcType=TIMESTAMP},
         #{userLastLoginTime,jdbcType=TIMESTAMP}, #{userStatus,jdbcType=INTEGER}, #{userRole,jdbcType=VARCHAR})
     </insert>
+
+    <!--根据id查用户-->
+    <select id="getUserById" parameterType="int" resultType="user">
+        SELECT * FROM user where  user_id=#{id}
+    </select>
+
+
 </mapper>

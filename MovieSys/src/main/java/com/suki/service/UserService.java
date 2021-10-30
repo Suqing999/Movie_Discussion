@@ -13,4 +13,6 @@ public interface UserService {
     User getUserByEmail(String email);
 
     void insertUser(User user);
+
+    User getUserById(Integer userId);
 }

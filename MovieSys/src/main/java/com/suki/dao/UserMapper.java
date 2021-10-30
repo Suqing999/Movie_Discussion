@@ -14,4 +14,6 @@ public interface UserMapper {
     User getUserByEmail(@Param("email") String email);
 
     void insertUser(User user);
+
+    User getUserById(@Param("id") Integer userId);
 }

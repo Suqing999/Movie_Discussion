@@ -1,11 +1,9 @@
 package com.suki.controller;
 
-import com.suki.pojo.Article;
-import com.suki.pojo.Comment;
-import com.suki.pojo.User;
-import com.suki.service.ArticleService;
-import com.suki.service.CommentService;
-import com.suki.service.UserService;
+import com.github.pagehelper.PageInfo;
+import com.mysql.cj.protocol.x.Notice;
+import com.suki.pojo.*;
+import com.suki.service.*;
 import org.apache.ibatis.annotations.Param;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +28,19 @@ public class StartController {
     private UserService userService;
 
     @Autowired
+    private TagService tagService;
+
+    @Autowired
     private ArticleService articleService;
 
     @Autowired
     private CommentService commentService;
+
+    @Autowired
+    private LinkService linkService;
+
+    @Autowired
+    private MenuService menuService;
 
     /**
      * Suki
@@ -41,8 +48,37 @@ public class StartController {
      * @return
      */
     @RequestMapping("/")
-    public String startSSM(){
+    public String startSSM(@RequestParam(required = false, defaultValue = "1") Integer pageIndex,
+                           @RequestParam(required = false, defaultValue = "10") Integer pageSize,
+                           Model model){
         System.out.println("a");
+
+        HashMap<String, Object> criteria = new HashMap<>(1);
+        criteria.put("status",1); //状态是发布状态的
+
+        //文章列表
+        PageInfo<Article> articleList = articleService.pageArticle(pageIndex, pageSize, criteria);
+        model.addAttribute("pageInfo", articleList);
+
+        //友情链接
+        List<Link> linkList = linkService.listLink(1); //1为显示
+        model.addAttribute("linkList", linkList);
+
+        //菜单
+        List<Menu> menuList = menuService.listMenu();
+        model.addAttribute("menuList",menuList);
+
+
+        //侧边栏显示
+        //标签列表显示
+        List<Tag> allTagList = tagService.listTag();
+        model.addAttribute("allTagList", allTagList);
+
+        //最新评论
+        List<Comment> recentCommentList = commentService.listRecentComment(null, 10);
+
+        model.addAttribute("recentCommentList", recentCommentList);
+        model.addAttribute("pageUrlPrefix", "/article?pageIndex");
         return "Home/index";
     }
 

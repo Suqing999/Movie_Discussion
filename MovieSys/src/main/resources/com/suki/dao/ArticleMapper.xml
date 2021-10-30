@@ -29,4 +29,37 @@
             article_id = #{id}
         </where>
     </select>
+
+
+    <select id="findAll" resultType="article">
+        SELECT
+        article.*
+        FROM
+        article
+        <where>
+            <if test="status != null">
+                article.article_status = #{status} AND
+            </if>
+            <if test="keywords != null">
+                article.article_title LIKE concat(concat('%',#{keywords}),'%') AND
+            </if>
+            <if test="userId != null">
+                article.article_user_id = #{userId} AND
+            </if>
+            <if test="categoryId != null">
+                article.article_id IN (
+                SELECT article_category_ref.article_id FROM article_category_ref
+                WHERE article_category_ref.category_id = #{categoryId}
+                ) AND
+            </if>
+            <if test="tagId != null">
+                article.article_id IN (
+                SELECT article_tag_ref.article_id FROM article_tag_ref
+                WHERE article_tag_ref.tag_id = #{tagId}
+                ) AND
+            </if>
+            1 = 1
+        </where>
+        ORDER BY `article`.`article_order` DESC, `article`.`article_id` DESC
+    </select>
 </mapper>
