@@ -72,4 +72,9 @@ public class CategoryServiceImpl implements CategoryService {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public int countCategory() {
+        return categoryMapper.countCategory();
+    }
 }

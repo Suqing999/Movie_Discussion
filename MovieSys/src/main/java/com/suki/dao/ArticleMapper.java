@@ -35,4 +35,11 @@ public interface ArticleMapper {
 
     void delart(@Param("id") Integer id);
 
+    Integer countArticle(@Param("id") Integer status);
+
+    int countArticleComment();
+
+    int countArticleView();
+
+    Article getLastUpdateArticle();
 }

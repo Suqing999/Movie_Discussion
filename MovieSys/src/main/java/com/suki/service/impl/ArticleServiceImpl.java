@@ -190,5 +190,31 @@ public class ArticleServiceImpl implements ArticleService {
         return articleTagRefMapper.countArticleByTagId(id);
     }
 
+    @Override
+    public int countArticle(Integer status) {
+        Integer count = 0;
+        try {
+            count = articleMapper.countArticle(status);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
 
+
+    @Override
+    public int countArticleComment() {
+        return articleMapper.countArticleComment();
+    }
+
+
+    @Override
+    public int countArticleView() {
+        return articleMapper.countArticleView();
+    }
+
+    @Override
+    public Article getLastUpdateArticle() {
+        return articleMapper.getLastUpdateArticle();
+    }
 }

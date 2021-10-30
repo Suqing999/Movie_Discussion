@@ -38,4 +38,12 @@ public interface ArticleService {
     int countArticleByCategoryId(Integer id);
 
     Integer countArticleByTagId(Integer id);
+
+    int countArticle(Integer status);
+
+    int countArticleComment();
+
+    int countArticleView();
+
+    Article getLastUpdateArticle();
 }

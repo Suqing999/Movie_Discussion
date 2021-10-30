@@ -35,4 +35,9 @@
         </set>
         where category_id = #{categoryId,jdbcType=INTEGER}
     </update>
+
+    <!--获得分类总数-->
+    <select id="countCategory" resultType="Integer">
+        SELECT COUNT(*) FROM category
+    </select>
 </mapper>

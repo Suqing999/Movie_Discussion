@@ -68,4 +68,9 @@ public class TagServiceImpl implements TagService {
     public void updateTag(Tag tag) {
         tagMapper.update(tag);
     }
+
+    @Override
+    public int countTag() {
+        return  tagMapper.countTag();
+    }
 }

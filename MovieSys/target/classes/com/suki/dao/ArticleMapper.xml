@@ -193,5 +193,39 @@
     </delete>
 
 
+    <!--获取文章总数-->
+    <select id="countArticle" resultType="Integer">
+        SELECT COUNT(*) FROM article
+        WHERE article_status = #{id}
+    </select>
+
+    <!--获得文章留言总数-->
+    <select id="countArticleComment" resultType="Integer">
+        SELECT SUM(article_comment_count)
+        FROM
+        article
+        WHERE article_status = 1
+    </select>
+
+    <!--统计文章总访问量-->
+    <select id="countArticleView" resultType="Integer">
+        SELECT SUM(article_view_count) FROM
+           article
+        WHERE article_status = 1
+    </select>
+
+    <!--获得最后更新的记录-->
+    <select id="getLastUpdateArticle" resultType="article">
+        SELECT * FROM article
+        WHERE
+        article_status = 1 AND article_update_time=
+        (
+        SELECT max(article_update_time) FROM article
+        )
+    </select>
+
+
+
+
 
 </mapper>

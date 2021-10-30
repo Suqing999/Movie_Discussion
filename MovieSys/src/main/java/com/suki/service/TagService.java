@@ -16,4 +16,6 @@ public interface TagService {
     void deleteTag(Integer id);
 
     void updateTag(Tag tag);
+
+    int countTag();
 }

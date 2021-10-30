@@ -6,4 +6,13 @@
     <select id="listLink" resultType="link">
         select * from link
     </select>
+
+    <select id="countLink" resultType="Integer">
+        SELECT COUNT(*) FROM link
+        <where>
+            <if test="stat!=null">
+                link_status=#{stat}
+            </if>
+        </where>
+    </select>
 </mapper>

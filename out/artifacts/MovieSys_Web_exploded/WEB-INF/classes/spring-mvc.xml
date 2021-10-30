@@ -40,6 +40,18 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
+    <!--interceptor拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!--初始页面的拦截器   加载初始页面的所需资源-->
+            <mvc:mapping path="/**/"/>
+            <bean class="com.suki.interceptor.StartInterceptor"/>
+        </mvc:interceptor>
 
+        <mvc:interceptor>
+            <mvc:mapping path="/admin/**"/>
+            <bean class="com.suki.interceptor.BackSystemInterceptor"/>
+        </mvc:interceptor>
 
+    </mvc:interceptors>
 </beans>

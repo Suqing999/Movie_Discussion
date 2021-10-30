@@ -19,4 +19,9 @@ public class LinkServiceImpl implements LinkService {
     public List<Link> listLink(Integer stat) {
         return linkMapper.listLink(stat);
     }
+
+    @Override
+    public int countLink(Integer i) {
+        return linkMapper.countLink(i);
+    }
 }

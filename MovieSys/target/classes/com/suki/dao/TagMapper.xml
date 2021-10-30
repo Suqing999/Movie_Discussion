@@ -31,4 +31,9 @@
         </set>
         where tag_id = #{tagId,jdbcType=INTEGER}
     </update>
+
+    <!--获得标签总数-->
+    <select id="countTag" resultType="Integer">
+        SELECT COUNT(*) FROM tag
+    </select>
 </mapper>

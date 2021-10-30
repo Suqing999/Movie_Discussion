@@ -15,4 +15,6 @@ public interface CategoryMapper {
     void deleteCategory(@Param("id") Integer id);
 
     void update(Category category);
+
+    int countCategory();
 }

@@ -6,4 +6,7 @@ import java.util.List;
 
 public interface LinkService {
     List<Link> listLink(Integer stat);
+
+
+    int countLink(Integer i);
 }
