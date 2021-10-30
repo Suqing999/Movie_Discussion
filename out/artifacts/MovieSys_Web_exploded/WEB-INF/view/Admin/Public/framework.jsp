@@ -64,16 +64,6 @@
                     </li>
 
                     <li class="layui-nav-item">
-                        <a class="" href="javascript:;">
-                            链接
-                        </a>
-                        <dl class="layui-nav-child">
-                            <dd><a href="/admin/link">全部链接</a></dd>
-                            <dd><a href="/admin/link/insert">添加链接</a></dd>
-                        </dl>
-                    </li>
-
-                    <li class="layui-nav-item">
                         <a href="/admin/comment">
                             评论
                         </a>
@@ -127,7 +117,7 @@
 
     <div class="layui-footer">
         <!-- 底部固定区域 -->
-        <div align="center">© <a href="http://blog.liuyanzhao.com">Suki电影论坛与推荐</a> 2021    同时代做毕设</a> </div>
+        <div align="center">© <a href="#">Suki电影论坛与推荐</a> 2021    同时代做毕设 </div>
     </div>
 </div>
 

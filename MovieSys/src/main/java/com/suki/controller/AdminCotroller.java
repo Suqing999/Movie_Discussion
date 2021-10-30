@@ -174,5 +174,58 @@ public class AdminCotroller {
     }
 
 
+    @RequestMapping("/user")
+    public ModelAndView userList() {
+        ModelAndView modelandview = new ModelAndView();
 
+        List<User> userList = userService.listUser();
+        modelandview.addObject("userList", userList);
+
+        modelandview.setViewName("Admin/User/index");
+        return modelandview;
+
+    }
+   @RequestMapping("/user/insert")
+   public ModelAndView insertUserView() {
+       ModelAndView modelAndView = new ModelAndView();
+       modelAndView.setViewName("Admin/User/insert");
+       return modelAndView;
+   }
+    @RequestMapping("/user/insertSubmit")
+    public String insertUserSubmit(User user) {
+        User user2 = userService.getUserByName(user.getUserName());
+        User user3 = userService.getUserByEmail(user.getUserEmail());
+        if (user2 == null && user3 == null) {
+            user.setUserRegisterTime(new Date());
+            user.setUserStatus(1);
+            user.setUserRole("user");
+            userService.insertUser(user);
+        }
+        return "redirect:/admin/user";
+    }
+
+
+    @RequestMapping("/user/edit/{id}")
+    public ModelAndView editUserView(@PathVariable("id") Integer id) {
+        ModelAndView modelAndView = new ModelAndView();
+
+        User user = userService.getUserById(id);
+        modelAndView.addObject("user", user);
+
+        modelAndView.setViewName("Admin/User/edit");
+        return modelAndView;
+    }
+
+
+
+    @RequestMapping("/user/editSubmit")
+    public String editUserSubmit(User user) {
+        userService.updateUser(user);
+        return "redirect:/admin/user";
+    }
+    @RequestMapping("/user/delete/{id}")
+    public String deleteUser(@PathVariable("id") Integer id) {
+        userService.deleteUser(id);
+        return "redirect:/admin/user";
+    }
 }

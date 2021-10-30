@@ -64,16 +64,6 @@
                     </li>
 
                     <li class="layui-nav-item">
-                        <a class="" href="javascript:;">
-                            链接
-                        </a>
-                        <dl class="layui-nav-child">
-                            <dd><a href="/admin/link">全部链接</a></dd>
-                            <dd><a href="/admin/link/insert">添加链接</a></dd>
-                        </dl>
-                    </li>
-
-                    <li class="layui-nav-item">
                         <a href="/admin/comment">
                             评论
                         </a>

@@ -2,6 +2,8 @@ package com.suki.service;
 
 import com.suki.pojo.User;
 
+import java.util.List;
+
 public interface UserService {
 
     public User getUserByNameOrEmail(String username);
@@ -15,4 +17,8 @@ public interface UserService {
     void insertUser(User user);
 
     User getUserById(Integer userId);
+
+    List<User> listUser();
+
+    void deleteUser(Integer id);
 }

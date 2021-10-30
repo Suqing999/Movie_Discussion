@@ -55,5 +55,14 @@
         SELECT * FROM user where  user_id=#{id}
     </select>
 
+    <!--根据id查用户-->
+    <select id="listUser"  resultType="user">
+        SELECT * FROM user
+    </select>
+
+    <delete id="deleteUser" parameterType="java.lang.Integer">
+        delete from user
+        where user_id = #{id,jdbcType=INTEGER}
+    </delete>
 
 </mapper>

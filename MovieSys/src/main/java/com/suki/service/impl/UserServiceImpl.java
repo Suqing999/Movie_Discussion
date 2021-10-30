@@ -6,6 +6,8 @@ import com.suki.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -40,5 +42,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(Integer userId) {
         return userMapper.getUserById(userId);
+    }
+
+    @Override
+    public List<User> listUser() {
+        return  userMapper.listUser();
+    }
+
+    @Override
+    public void deleteUser(Integer id) {
+        userMapper.deleteUser(id);
     }
 }
