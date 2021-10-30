@@ -184,4 +184,11 @@ public class ArticleServiceImpl implements ArticleService {
         }
         return count;
     }
+
+    @Override
+    public Integer countArticleByTagId(Integer id) {
+        return articleTagRefMapper.countArticleByTagId(id);
+    }
+
+
 }

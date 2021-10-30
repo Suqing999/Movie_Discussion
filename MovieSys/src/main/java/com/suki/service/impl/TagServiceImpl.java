@@ -38,4 +38,34 @@ public class TagServiceImpl implements TagService {
         }
         return tagList;
     }
+
+    @Override
+    public void insertTag(Tag tag) {
+        try {
+            tagMapper.insert(tag);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public Tag getTagById(Integer id) {
+        Tag tag = null;
+        try {
+            tag = tagMapper.getTagById(id);
+        } catch (Exception e) {            e.printStackTrace();
+        }
+        return tag;
+    }
+
+    @Override
+    public void deleteTag(Integer id) {
+        tagMapper.deleteTag(id);
+    }
+
+    @Override
+    public void updateTag(Tag tag) {
+        tagMapper.update(tag);
+    }
 }

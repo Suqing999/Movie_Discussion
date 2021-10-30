@@ -8,4 +8,12 @@ public interface TagService {
     List<Tag> listTag();
 
     List<Tag> listTagWithCount();
+
+    void insertTag(Tag tag);
+
+    Tag getTagById(Integer id);
+
+    void deleteTag(Integer id);
+
+    void updateTag(Tag tag);
 }

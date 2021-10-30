@@ -361,14 +361,6 @@ public class AdminCotroller {
 
 
 
-
-
-
-
-
-
-
-
     @RequestMapping("/tag")
     public ModelAndView indexTag()  {
         ModelAndView modelandview = new ModelAndView();
@@ -379,8 +371,45 @@ public class AdminCotroller {
 
     }
 
-  /*
-                            <a href="/admin/article/del/${a.articleId}"*/
+    @RequestMapping("/tag/insertSubmit")
+    public String insertTagSubmit(Tag tag)  {
+        tagService.insertTag(tag);
+        return "redirect:/admin/tag";
+    }
+
+
+    @RequestMapping("/tag/edit/{id}")
+    public ModelAndView editTagView(@PathVariable("id") Integer id)  {
+        ModelAndView modelAndView = new ModelAndView();
+
+        Tag tag =  tagService.getTagById(id);
+        modelAndView.addObject("tag",tag);
+
+        List<Tag> tagList = tagService.listTagWithCount();
+        modelAndView.addObject("tagList",tagList);
+
+        modelAndView.setViewName("Admin/Tag/edit");
+        return modelAndView;
+    }
+
+    @RequestMapping("/tag/editSubmit")
+    public String editTagSubmit(Tag tag)  {
+        tagService.updateTag(tag);
+        return "redirect:/admin/tag";
+    }
+
+    @RequestMapping("/tag/delete/{id}")
+    public String deleteTag(@PathVariable("id") Integer id)  {
+        Integer count = articleService.countArticleByTagId(id);
+        if (count == 0) {
+            tagService.deleteTag(id);
+        }
+        return "redirect:/admin/tag";
+    }
+
+
+
+
 
 
     @RequestMapping("/article/edit/{articleId}")

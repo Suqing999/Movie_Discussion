@@ -36,4 +36,6 @@ public interface ArticleService {
     void updateArticleDetail(Article article);
 
     int countArticleByCategoryId(Integer id);
+
+    Integer countArticleByTagId(Integer id);
 }

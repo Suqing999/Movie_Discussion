@@ -6,4 +6,29 @@
     <select id="listTag" resultType="tag">
         select * from tag
     </select>
+
+    <insert id="insert" parameterType="tag" useGeneratedKeys="true" keyProperty="tagId">
+        insert into tag
+        (tag_name, tag_description)
+        values (#{tagName,jdbcType=VARCHAR}, #{tagDescription,jdbcType=VARCHAR})
+    </insert>
+    <select id="getTagById" resultType="tag">
+        select * from tag where tag_id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteTag" parameterType="java.lang.Integer" >
+        delete from tag
+        where tag_id = #{id,jdbcType=INTEGER}
+    </delete>
+    <update id="update" parameterType="tag" >
+        update tag
+        <set >
+            <if test="tagName != null" >
+                tag_name = #{tagName,jdbcType=VARCHAR},
+            </if>
+            <if test="tagDescription != null" >
+                tag_description = #{tagDescription,jdbcType=VARCHAR}
+            </if>
+        </set>
+        where tag_id = #{tagId,jdbcType=INTEGER}
+    </update>
 </mapper>
