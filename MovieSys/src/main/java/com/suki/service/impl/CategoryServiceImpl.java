@@ -6,6 +6,7 @@ import com.suki.pojo.Category;
 import com.suki.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.List;
 
@@ -35,5 +36,40 @@ public class CategoryServiceImpl implements CategoryService {
             e.printStackTrace();
         }
         return categoryList;
+    }
+
+    @Override
+    public void insertCategory(Category category) {
+        categoryMapper.insert(category);
+    }
+
+    @Override
+    public Category getCategoryById(Integer id) {
+        Category category = null;
+        try {
+            category = categoryMapper.getCategoryById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return category;
+    }
+
+    @Override
+    public void deleteCategory(Integer id) {
+        try {
+            categoryMapper.deleteCategory(id);
+            articleCategoryRefMapper.deleteByCategoryId(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void updateCategory(Category category) {
+        try {
+            categoryMapper.update(category);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

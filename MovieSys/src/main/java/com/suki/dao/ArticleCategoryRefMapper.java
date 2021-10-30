@@ -16,4 +16,6 @@ public interface ArticleCategoryRefMapper {
     Integer countArticleByCategoryId(@Param("id") Integer categoryId);
 
     void deleteByArticleId(@Param("id") Integer articleId);
+
+    void deleteByCategoryId(@Param("id") Integer id);
 }

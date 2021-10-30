@@ -34,5 +34,9 @@ An error occurred at line: [16] in the generated java file:xxxxx
 ````
 原因：pom中jsp的jar包冲突导致，也有可能是jsp引入java文件路径失败
 
-
+内容3：RequestMapping中用了$符号 500错误（大意失荆州！！）
+```$xslt
+java.lang.IllegalStateException: Invalid mapping on handler class [com.suki.controller.AdminCotroller]: 
+public org.springframework.web.servlet.ModelAndView com.suki.controller.AdminCotroller.editCategoryView(java.lang.Integer)
+```
 

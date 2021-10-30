@@ -34,4 +34,6 @@ public interface ArticleService {
     void delArticle(Integer id);
 
     void updateArticleDetail(Article article);
+
+    int countArticleByCategoryId(Integer id);
 }

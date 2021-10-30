@@ -7,4 +7,32 @@
     <select id="listCategory" resultType="category">
         select * from category
     </select>
+
+    <insert id="insert" parameterType="category" useGeneratedKeys="true" keyProperty="categoryId">
+        insert into category
+        (category_pid, category_name,category_description, category_order, category_icon)
+        values (#{categoryPid,jdbcType=INTEGER}, #{categoryName,jdbcType=VARCHAR},
+        #{categoryDescription,jdbcType=VARCHAR}, #{categoryOrder,jdbcType=INTEGER}, #{categoryIcon,jdbcType=VARCHAR})
+    </insert>
+
+    <select id="getCategoryById" resultType="category">
+        select * from category where  category_id=#{id}
+    </select>
+    <!--删除分类-->
+    <delete id="deleteCategory" parameterType="Integer">
+        DELETE FROM category
+        WHERE category_id=#{id}
+    </delete>
+
+    <update id="update" parameterType="category">
+        update category
+        <set>
+            <if test="categoryPid != null">category_pid = #{categoryPid,jdbcType=INTEGER},</if>
+            <if test="categoryName != null">category_name = #{categoryName,jdbcType=VARCHAR},</if>
+            <if test="categoryDescription != null">category_description = #{categoryDescription,jdbcType=VARCHAR},</if>
+            <if test="categoryOrder != null">category_order = #{categoryOrder,jdbcType=INTEGER},</if>
+            <if test="categoryIcon != null">category_icon = #{categoryIcon,jdbcType=VARCHAR},</if>
+        </set>
+        where category_id = #{categoryId,jdbcType=INTEGER}
+    </update>
 </mapper>

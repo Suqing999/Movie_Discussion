@@ -314,6 +314,61 @@ public class AdminCotroller {
         return modelandview;
     }
 
+
+    @RequestMapping("/category/insertSubmit")
+    public String insertCategorySubmit(Category category)  {
+        categoryService.insertCategory(category);
+        return "redirect:/admin/category";
+    }
+  /* <a href="/admin/category/edit/${c.categoryId}" class="layui-btn layui-btn-mini">编辑</a>
+                                <c:if test="${c.articleCount==0}">
+                                    <a href="/admin/category/delete/${c.categoryId}" class="layui-btn layui-btn-danger layui-btn-mini" onclick="return confirmDelete()">删除</a>
+                                </c:if>*/
+  @RequestMapping("/category/edit/{categoryId}")
+  public ModelAndView editCategoryView(@PathVariable("categoryId") Integer id)  {
+      ModelAndView modelAndView = new ModelAndView();
+
+      Category category =  categoryService.getCategoryById(id);
+      modelAndView.addObject("category",category);
+
+      List<Category> categoryList = categoryService.listCategoryWithCount();
+      modelAndView.addObject("categoryList",categoryList);
+
+      modelAndView.setViewName("Admin/Category/edit");
+      return modelAndView;
+  }
+
+    @RequestMapping("/category/editSubmit")
+    public String editCategorySubmit(Category category)  {
+        categoryService.updateCategory(category);
+        return "redirect:/admin/category";
+    }
+
+
+    @RequestMapping("/category/delete/{categoryId}")
+    public String deleteCategory(@PathVariable("categoryId") Integer id)  {
+        //禁止删除有文章的分类
+        int count = articleService.countArticleByCategoryId(id);
+
+        if (count == 0) {
+            categoryService.deleteCategory(id);
+        }
+        return "redirect:/admin/category";
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     @RequestMapping("/tag")
     public ModelAndView indexTag()  {
         ModelAndView modelandview = new ModelAndView();
@@ -403,6 +458,59 @@ public class AdminCotroller {
         articleService.updateArticleDetail(article);
         return "redirect:/admin/article";
     }
+
+
+    @RequestMapping("/article/insertSubmit")
+    public String insertArticleSubmit(HttpSession session, ArticleParam articleParam) {
+        Article article = new Article();
+        //用户ID
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            article.setArticleUserId(user.getUserId());
+        }
+        article.setArticleTitle(articleParam.getArticleTitle());
+        //文章摘要
+        int summaryLength = 150;
+        String summaryText = HtmlUtil.cleanHtmlTag(articleParam.getArticleContent());
+        if (summaryText.length() > summaryLength) {
+            String summary = summaryText.substring(0, summaryLength);
+            article.setArticleSummary(summary);
+        } else {
+            article.setArticleSummary(summaryText);
+        }
+        article.setArticleThumbnail(articleParam.getArticleThumbnail());
+        article.setArticleContent(articleParam.getArticleContent());
+        article.setArticleStatus(articleParam.getArticleStatus());
+        //填充分类
+        List<Category> categoryList = new ArrayList<>();
+        if (articleParam.getArticleChildCategoryId() != null) {
+            categoryList.add(new Category(articleParam.getArticleParentCategoryId()));
+        }
+        if (articleParam.getArticleChildCategoryId() != null) {
+            categoryList.add(new Category(articleParam.getArticleChildCategoryId()));
+        }
+        article.setCategoryList(categoryList);
+        //填充标签
+        List<Tag> tagList = new ArrayList<>();
+        if (articleParam.getArticleTagIds() != null) {
+            for (int i = 0; i < articleParam.getArticleTagIds().size(); i++) {
+                Tag tag = new Tag(articleParam.getArticleTagIds().get(i));
+                tagList.add(tag);
+            }
+        }
+        article.setTagList(tagList);
+
+        articleService.insertArticle(article);
+        return "redirect:/admin/article";
+    }
+
+
+
+
+
+
+
+
 
 
 

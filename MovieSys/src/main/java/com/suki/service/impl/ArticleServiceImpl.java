@@ -172,4 +172,16 @@ public class ArticleServiceImpl implements ArticleService {
             }
         }
     }
+
+
+    @Override
+    public int countArticleByCategoryId(Integer id) {
+        Integer count = 0;
+        try {
+            count = articleCategoryRefMapper.countArticleByCategoryId(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
 }

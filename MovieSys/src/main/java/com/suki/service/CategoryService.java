@@ -8,4 +8,12 @@ public interface CategoryService {
     List<Category> listCategory();
 
     List<Category> listCategoryWithCount();
+
+    void insertCategory(Category category);
+
+    Category getCategoryById(Integer id);
+
+    void deleteCategory(Integer id);
+
+    void updateCategory(Category category);
 }
