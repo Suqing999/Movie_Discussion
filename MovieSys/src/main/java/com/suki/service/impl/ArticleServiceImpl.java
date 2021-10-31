@@ -217,4 +217,9 @@ public class ArticleServiceImpl implements ArticleService {
     public Article getLastUpdateArticle() {
         return articleMapper.getLastUpdateArticle();
     }
+
+    @Override
+    public List<Article> listAllNotWithContent() {
+        return articleMapper.listAllNotWithContent();
+    }
 }

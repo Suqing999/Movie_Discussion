@@ -17,7 +17,7 @@
             width: 120px;
         }
         .layui-word-aux {
-            color: #FF5722 !important;
+            color: #ff5722 !important;
         }
     </style>
 </rapid:override>

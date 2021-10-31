@@ -46,4 +46,6 @@ public interface ArticleService {
     int countArticleView();
 
     Article getLastUpdateArticle();
+
+    List<Article> listAllNotWithContent();
 }

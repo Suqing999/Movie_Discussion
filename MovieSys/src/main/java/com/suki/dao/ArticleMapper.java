@@ -42,4 +42,6 @@ public interface ArticleMapper {
     int countArticleView();
 
     Article getLastUpdateArticle();
+
+    List<Article> listAllNotWithContent();
 }

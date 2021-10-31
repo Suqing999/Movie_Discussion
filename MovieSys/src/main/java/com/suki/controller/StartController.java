@@ -47,7 +47,7 @@ public class StartController {
      * 主页
      * @return
      */
-    @RequestMapping("/")
+    @RequestMapping(value = {"/", "/article"})
     public String startSSM(@RequestParam(required = false, defaultValue = "1") Integer pageIndex,
                            @RequestParam(required = false, defaultValue = "10") Integer pageSize,
                            Model model){

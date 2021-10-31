@@ -42,9 +42,6 @@ public class ArticleController {
 
         //文章信息，分类，标签，作者，评论
         Article article = articleService.getArticleByStatusAndId(1, articleId);//获得已经发布的文章
-        if (article == null) {
-            return "Home/Error/404";
-        }
 
         //用户信息
         User user = userService.getUserById(article.getArticleUserId()); //通过文章对应的用户id获取

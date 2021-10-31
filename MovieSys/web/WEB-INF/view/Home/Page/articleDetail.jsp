@@ -61,19 +61,6 @@
                     <div class="single-content">
                             ${article.articleContent}
                     </div>
-                    <div class="s-weixin">
-                        <ul class="weimg1">
-                            <li><strong>微信</strong></li>
-                            <li>赶快加我聊天吧</li>
-                            <li><img src="/img/weixin.jpg"></li>
-                        </ul>
-                        <ul class="weimg2">
-                            <li><strong>博客交流群</strong></li>
-                            <li>海纳百川，大家来水</li>
-                            <li><img src="/img/qqGroup.jpg" alt="weinxin"></li>
-                        </ul>
-                        <div class="clear"></div>
-                    </div>
                     <div class="clear"></div>
                     <div id="social">
                         <div class="social-main">
@@ -88,7 +75,7 @@
                             <div class="shang-p">
                                 <div class="shang-empty"><span></span></div>
                                 <span class="shang-s">
-                                    <a onclick="PaymentUtils.show();" style="cursor:pointer">赏</a>
+
                                 </span>
                             </div>
                             <div class="share-sd">
@@ -225,7 +212,7 @@
                     </aside>
                         <%--猜你喜欢 start--%>
                     <aside id="hot_post-8" class="widget hot_post">
-                        <h3 class="widget-title"><span class="s-icon"></span>猜你喜欢</h3>
+                        <h3 class="widget-title"><span class="s-icon"></span>猜你喜欢（后期加入推荐算法）</h3>
                         <div id="hot_post_widget">
                             <ul>
                                 <c:forEach items="${mostViewArticleList}" var="m">

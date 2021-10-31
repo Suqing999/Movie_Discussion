@@ -7,20 +7,7 @@
 
 
 <rapid:override name="breadcrumb">
-    <nav class="breadcrumb">
-        <div class="bull"><i class="fa fa-volume-up"></i></div>
-        <div id="scrolldiv">
-            <div class="scrolltext">
-                <ul style="margin-top: 0px;">
-                    <c:forEach items="${noticeList}" var="n">
-                        <li class="scrolltext-title">
-                            <a href="/notice/${n.noticeId}" rel="bookmark">${n.noticeTitle}</a>
-                        </li>
-                    </c:forEach>
-                </ul>
-            </div>
-        </div>
-    </nav>
+
 </rapid:override>
 
 <rapid:override name="left">
